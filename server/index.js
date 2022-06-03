@@ -67,7 +67,21 @@ app.put("/user/:id", async (req, res) => {
     console.log(err.message);
   }
 });
+
 // delete
+app.delete("/user/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deleteUser = await pool.query("DELETE FROM users WHERE id = $1", [
+      id,
+    ]);
+
+    res.json("Deleted");
+  } catch (err) {
+    console.log(err.message);
+  }
+});
 
 app.listen(3000, () => {
   console.log(`Server is running on port `);
